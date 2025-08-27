@@ -15,6 +15,9 @@ public class FlightTimeHUD extends TextHudElement {
 
 	@Override
 	public String getText() {
-		return Utils.formatDuration(Cockpit.getFlightTime());
+		int elytra = Utils.getTotalElytra();
+		if (elytra == 0) return "N/A";
+		if (elytra == 1) return Utils.formatDuration(Cockpit.getFlightTime());
+		return Utils.formatDuration(Cockpit.getFlightTime()) + " (" + elytra + " Elytra)";
 	}
 }

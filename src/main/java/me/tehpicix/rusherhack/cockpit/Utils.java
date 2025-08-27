@@ -1,6 +1,12 @@
 package me.tehpicix.rusherhack.cockpit;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+
 public class Utils {
+
+	private static Minecraft mc = Minecraft.getInstance();
 
 	/**
      * Formats a duration given in total seconds into a human-readable string.
@@ -35,5 +41,30 @@ public class Utils {
 		if (value <= 0) return;
 		if (sb.length() > 0) sb.append(' ');
 		sb.append(value).append(suffix);
+	}
+
+	/**
+	 * Counts the total number of Elytra items in the player's inventory, including armor and offhand slots.
+	 * @return The total count of Elytra items.
+	 */
+	public static int getTotalElytra() {
+
+		int elytra = 0;
+
+		// Check all inventory slots including armor slots for Elytra
+		for (int i = 0; i < 36; i++) {
+			ItemStack item = mc.player.getInventory().getItem(i);
+			if (item.getItem() != Items.ELYTRA) continue;
+			elytra++;
+		}
+
+		// Check the chest armor slot specifically for Elytra
+		ItemStack chestArmor = mc.player.getInventory().getArmor(2);
+		if (chestArmor.getItem() == Items.ELYTRA) elytra++;
+
+		ItemStack offhand = mc.player.getOffhandItem();
+		if (offhand.getItem() == Items.ELYTRA) elytra++;
+
+		return elytra;
 	}
 }
