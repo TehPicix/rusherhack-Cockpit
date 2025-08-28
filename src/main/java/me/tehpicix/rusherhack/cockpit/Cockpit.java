@@ -22,6 +22,7 @@ public class Cockpit {
 	private static double speed = 0D;
 
 	private static double elytraDurability = 0D;
+	private static final int PR = 20;
 
 	/**
      * Starts a new thread that updates the speed variable every tick.
@@ -37,7 +38,7 @@ public class Cockpit {
 
 				while (isRunning) {
 					tick();
-					Thread.sleep(1000);
+					Thread.sleep(1000 / PR);
 				}
 
 			} catch (InterruptedException e) {
@@ -88,7 +89,7 @@ public class Cockpit {
 		double deltaX = mc.player.getX() - lastX;
 		double deltaY = mc.player.getY() - lastY;
 		double deltaZ = mc.player.getZ() - lastZ;
-		speed = Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ);
+		speed = Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * PR;
 		lastX = mc.player.getX();
 		lastY = mc.player.getY();
 		lastZ = mc.player.getZ();
