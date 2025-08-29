@@ -15,16 +15,10 @@ public class FlightDistanceHUD extends TextHudElement {
 
 	@Override
 	public String getText() {
-
-		if (!mc.player.isFallFlying()) {
-			return "N/A";
-		}
-
-		// estimated distance in meters
-		double speed = Cockpit.getSpeed(); // in m/s
+		if (!mc.player.isFallFlying()) return "Not flying";
+		double speed = Cockpit.getSpeed();
 		double distance = Cockpit.getSpeed() * Cockpit.getFlightTime();
-		distance = distance / 1000D; // convert to km
-
+		distance = distance / 1000D;
 		return String.format("%.1f km (%.1f km/h)", distance, speed * 3.6);
 	}
 }
